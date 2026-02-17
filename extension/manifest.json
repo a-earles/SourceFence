@@ -3,7 +3,7 @@
   "name": "SourceFence",
   "version": "0.1.0",
   "description": "Sourcing Compliance, Simplified. Flags restricted locations and companies in real-time on LinkedIn.",
-  "permissions": ["storage", "activeTab", "alarms"],
+  "permissions": ["storage", "activeTab"],
   "host_permissions": [
     "https://www.linkedin.com/*",
     "https://linkedin.com/*"

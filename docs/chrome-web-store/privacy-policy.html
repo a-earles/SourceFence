@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SourceFence — Privacy Policy</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      max-width: 720px;
+      margin: 40px auto;
+      padding: 0 24px;
+      color: #2D2D2D;
+      line-height: 1.7;
+    }
+    h1 { color: #1B2A4A; margin-bottom: 8px; }
+    h2 { color: #1B2A4A; margin-top: 32px; }
+    .updated { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    ul { padding-left: 24px; }
+    li { margin-bottom: 6px; }
+    a { color: #0EA5A0; }
+    .contact { margin-top: 40px; padding: 20px; background: #F0F7F7; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>SourceFence Privacy Policy</h1>
+  <p class="updated">Last updated: 17 February 2026</p>
+
+  <h2>Overview</h2>
+  <p>
+    SourceFence is a browser extension that helps recruiters maintain sourcing compliance
+    on LinkedIn. This privacy policy explains how SourceFence handles your data.
+  </p>
+  <p>
+    <strong>The short version:</strong> SourceFence does not collect, transmit, or store
+    any personal data. Everything stays in your browser.
+  </p>
+
+  <h2>Data Collection</h2>
+  <p>SourceFence does <strong>not</strong> collect any data. Specifically:</p>
+  <ul>
+    <li>No personal information is collected from you or from LinkedIn profiles you view</li>
+    <li>No analytics or tracking scripts are included</li>
+    <li>No cookies are set by the extension</li>
+    <li>No network requests are made to any external server</li>
+    <li>No data is transmitted outside of your browser</li>
+  </ul>
+
+  <h2>How SourceFence Works</h2>
+  <p>
+    SourceFence reads publicly displayed information on LinkedIn pages (such as candidate
+    name, location, and current employer) solely to compare it against restriction rules
+    that <em>you</em> have configured. This comparison happens entirely within your browser.
+  </p>
+  <p>
+    The restriction rules you create (location patterns, company names, severity levels,
+    and compliance notes) are stored locally in your browser using the Chrome Storage API.
+    This data never leaves your device.
+  </p>
+
+  <h2>Data Storage</h2>
+  <p>
+    All data used by SourceFence is stored locally in your browser via
+    <code>chrome.storage.local</code>. This includes:
+  </p>
+  <ul>
+    <li>Your restriction rules (locations and companies)</li>
+    <li>Your extension settings (enabled state, alert preferences)</li>
+  </ul>
+  <p>
+    This data is automatically removed if you uninstall the extension. You can also
+    clear it at any time by removing your rules through the extension popup.
+  </p>
+
+  <h2>Third-Party Services</h2>
+  <p>
+    SourceFence does not integrate with, send data to, or receive data from any
+    third-party services, APIs, or servers.
+  </p>
+
+  <h2>Permissions</h2>
+  <p>SourceFence requests the following browser permissions:</p>
+  <ul>
+    <li>
+      <strong>storage</strong> — To save your restriction rules and settings locally
+      in the browser
+    </li>
+    <li>
+      <strong>activeTab</strong> — To read the currently displayed LinkedIn page and
+      show compliance alerts
+    </li>
+    <li>
+      <strong>alarms</strong> — To support future periodic rule synchronisation
+      (not currently active)
+    </li>
+    <li>
+      <strong>host_permissions (linkedin.com)</strong> — To inject compliance alerts
+      and read profile information on LinkedIn pages
+    </li>
+  </ul>
+
+  <h2>LinkedIn Data</h2>
+  <p>
+    SourceFence reads information that is already visible to you on LinkedIn pages.
+    It does not access any data beyond what is displayed in your browser, does not
+    interact with the LinkedIn API, and does not store or export any LinkedIn profile
+    data. The extension solely performs local pattern matching to display compliance
+    alerts.
+  </p>
+
+  <h2>Children's Privacy</h2>
+  <p>
+    SourceFence is a professional tool for recruiters. It is not directed at children
+    under 13 and does not knowingly collect any information from children.
+  </p>
+
+  <h2>Changes to This Policy</h2>
+  <p>
+    If we make changes to this privacy policy, we will update the "Last updated" date
+    at the top of this page. Continued use of SourceFence after changes constitutes
+    acceptance of the updated policy.
+  </p>
+
+  <h2>Google API Disclosure</h2>
+  <p>
+    SourceFence's use of information received from Google APIs adheres to the
+    <a href="https://developer.chrome.com/docs/webstore/program-policies/limited-use" target="_blank" rel="noopener">
+    Chrome Web Store User Data Policy</a>, including the Limited Use requirements.
+  </p>
+
+  <div class="contact">
+    <h2 style="margin-top: 0;">Contact</h2>
+    <p>
+      If you have questions about this privacy policy, please open an issue at:<br>
+      <a href="https://github.com/a-earles/SourceFence/issues" target="_blank" rel="noopener">
+        github.com/a-earles/SourceFence/issues
+      </a>
+    </p>
+  </div>
+</body>
+</html>
