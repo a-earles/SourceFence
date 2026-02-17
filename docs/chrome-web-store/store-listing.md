@@ -48,7 +48,7 @@ Productivity
 English
 
 ## Website URL
-(To be determined)
+https://a-earles.github.io/SourceFence/
 
 ## Support URL
 https://github.com/a-earles/SourceFence/issues
@@ -64,7 +64,7 @@ https://github.com/a-earles/SourceFence/issues
 | Screenshot 2 — Search results badges | 1280x800 PNG | NEEDED |
 | Screenshot 3 — Popup with rules | 1280x800 PNG | NEEDED |
 | Screenshot 4 — Settings page | 1280x800 PNG | NEEDED |
-| Small promo tile | 440x280 PNG | NEEDED |
+| Small promo tile | 440x280 PNG | EXISTS at docs/chrome-web-store/promo-small-440x280.png |
 | Marquee promo tile (optional) | 1400x560 PNG | OPTIONAL |
 
 ### Screenshot Ideas

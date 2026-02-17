@@ -18,24 +18,23 @@
 - [ ] Screenshot 2: 1280x800 PNG — Search results with coloured badges
 - [ ] Screenshot 3: 1280x800 PNG — Popup with rules configured
 - [ ] Screenshot 4: 1280x800 PNG — Settings page (optional but recommended)
-- [ ] Small promo tile: 440x280 PNG — Branded image with logo and tagline
+- [x] Small promo tile: 440x280 PNG — docs/chrome-web-store/promo-small-440x280.png
 
 ## Privacy
 - [x] Privacy policy: docs/chrome-web-store/privacy-policy.html
-- [ ] Host the privacy policy at a public URL (GitHub Pages, personal site, etc.)
+- [x] Host the privacy policy at a public URL — https://a-earles.github.io/SourceFence/chrome-web-store/privacy-policy.html
 - [ ] Enter the privacy policy URL in the developer dashboard
 
 ## Permission Justifications (entered during submission)
 - **storage**: "Saves the user's restriction rules and settings locally. No data is sent externally."
 - **activeTab**: "Reads the active LinkedIn tab to display compliance alert banners on profile pages."
-- **alarms**: "Supports future periodic rule synchronisation. Currently used for internal scheduling."
 - **host_permissions (linkedin.com)**: "Injects compliance alert banners and reads publicly displayed profile information (name, location, employer) on LinkedIn pages to match against user-configured restriction rules. All processing is local."
 
 ## Single Purpose Statement
 "SourceFence helps recruiters maintain sourcing compliance by flagging restricted locations and companies on LinkedIn profiles in real time."
 
 ## Package
-- [ ] Create the extension ZIP (exclude: docs/, dashboard/, .git/, README.md, DECISIONS.md, screenshots, .gitignore)
+- [x] Create the extension ZIP — docs/chrome-web-store/sourcefence-v1.0.0.zip (58KB)
 - [ ] Verify the ZIP loads correctly via chrome://extensions in developer mode
 - [ ] Test all functionality after loading from ZIP
 
