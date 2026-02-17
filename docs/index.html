@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SourceFence — Sourcing Compliance for Recruiters</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #2D2D2D;
+      background: #ffffff;
+    }
+    .hero {
+      background: #1B2A4A;
+      color: #ffffff;
+      text-align: center;
+      padding: 60px 24px 50px;
+    }
+    .hero h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0 0 8px;
+      letter-spacing: 0.3px;
+    }
+    .hero h1 span {
+      color: #0EA5A0;
+    }
+    .hero p {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.75);
+      margin: 0;
+    }
+    .content {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
+    }
+    h2 {
+      color: #1B2A4A;
+      font-size: 20px;
+      margin: 32px 0 12px;
+    }
+    p, li {
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .feature {
+      padding: 16px;
+      background: #F0F7F7;
+      border-radius: 8px;
+      border-left: 3px solid #0EA5A0;
+    }
+    .feature strong {
+      display: block;
+      color: #1B2A4A;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+    .feature span {
+      font-size: 13px;
+      color: #6b7280;
+    }
+    a {
+      color: #0EA5A0;
+    }
+    .links {
+      margin-top: 32px;
+      padding: 20px;
+      background: #F0F7F7;
+      border-radius: 8px;
+    }
+    .links p {
+      margin: 6px 0;
+      font-size: 14px;
+    }
+    @media (max-width: 500px) {
+      .features { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1>Source<span>Fence</span></h1>
+    <p>Sourcing Compliance, Simplified.</p>
+  </div>
+
+  <div class="content">
+    <p>
+      SourceFence is a Chrome extension that helps recruiters maintain sourcing compliance
+      on LinkedIn. Set up restriction rules for locations and companies, and SourceFence
+      flags matching candidates in real time as you browse profiles and search results.
+    </p>
+
+    <div class="features">
+      <div class="feature">
+        <strong>Location Rules</strong>
+        <span>Flag candidates from restricted regions, countries, or cities</span>
+      </div>
+      <div class="feature">
+        <strong>Company Rules</strong>
+        <span>Enforce non-solicit agreements and off-limits clients</span>
+      </div>
+      <div class="feature">
+        <strong>Real-Time Alerts</strong>
+        <span>Banners on profiles and badges on search results</span>
+      </div>
+      <div class="feature">
+        <strong>Privacy First</strong>
+        <span>All data stays in your browser. Zero external requests.</span>
+      </div>
+    </div>
+
+    <h2>Where it works</h2>
+    <ul>
+      <li>LinkedIn standard profiles (/in/)</li>
+      <li>LinkedIn Recruiter (/talent/)</li>
+      <li>LinkedIn Sales Navigator (/sales/)</li>
+      <li>LinkedIn search results with per-candidate badges</li>
+    </ul>
+
+    <div class="links">
+      <p><a href="chrome-web-store/privacy-policy.html">Privacy Policy</a></p>
+      <p><a href="https://github.com/a-earles/SourceFence/issues" target="_blank" rel="noopener">Support &amp; Feedback</a></p>
+    </div>
+  </div>
+</body>
+</html>
