@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=380">
+  <title>SourceFence</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <h1 class="header__logo">SourceFence</h1>
+    <p class="header__tagline">Sourcing Compliance, Simplified.</p>
+  </header>
+
+  <!-- Status Section -->
+  <section id="status-section" class="status-card status-card--neutral">
+    <div class="status-card__content">
+      <p id="status-primary" class="status-card__primary">Navigate to a LinkedIn profile to see status</p>
+      <p id="status-detail" class="status-card__detail"></p>
+    </div>
+    <span id="status-badge" class="severity-badge severity-badge--hidden"></span>
+  </section>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <span id="stats-rules" class="stats-bar__item">0 rules active</span>
+    <span class="stats-bar__divider"></span>
+    <span id="stats-sync" class="stats-bar__item">Last synced: Never</span>
+  </div>
+
+  <!-- Rules Section -->
+  <section class="rules-section">
+    <!-- Tabs -->
+    <nav class="tabs" role="tablist">
+      <button class="tabs__tab tabs__tab--active" role="tab" aria-selected="true" data-tab="locations" id="tab-locations">
+        Locations
+      </button>
+      <button class="tabs__tab" role="tab" aria-selected="false" data-tab="companies" id="tab-companies">
+        Companies
+      </button>
+    </nav>
+
+    <!-- Location Rules Panel -->
+    <div id="panel-locations" class="tab-panel" role="tabpanel" aria-labelledby="tab-locations">
+      <ul id="rule-list-locations" class="rule-list" aria-label="Location rules"></ul>
+
+      <form id="add-form-locations" class="add-form" autocomplete="off">
+        <h3 class="add-form__heading">Add Location Rule</h3>
+        <div class="add-form__field">
+          <label for="pattern-locations" class="add-form__label">Pattern</label>
+          <input type="text" id="pattern-locations" class="add-form__input" placeholder="e.g. Germany, Berlin" required>
+        </div>
+        <div class="add-form__row">
+          <div class="add-form__field add-form__field--half">
+            <label for="severity-locations" class="add-form__label">Severity</label>
+            <select id="severity-locations" class="add-form__select" required>
+              <option value="" disabled selected>Select</option>
+              <option value="red">Red</option>
+              <option value="amber">Amber</option>
+            </select>
+          </div>
+        </div>
+        <div class="add-form__field">
+          <label for="message-locations" class="add-form__label">Message</label>
+          <input type="text" id="message-locations" class="add-form__input" placeholder="Compliance note for this rule">
+        </div>
+        <button type="submit" class="add-form__btn">Add Rule</button>
+      </form>
+    </div>
+
+    <!-- Company Rules Panel -->
+    <div id="panel-companies" class="tab-panel tab-panel--hidden" role="tabpanel" aria-labelledby="tab-companies">
+      <ul id="rule-list-companies" class="rule-list" aria-label="Company rules"></ul>
+
+      <form id="add-form-companies" class="add-form" autocomplete="off">
+        <h3 class="add-form__heading">Add Company Rule</h3>
+        <div class="add-form__field">
+          <label for="pattern-companies" class="add-form__label">Pattern</label>
+          <input type="text" id="pattern-companies" class="add-form__input" placeholder="e.g. Acme Corp" required>
+        </div>
+        <div class="add-form__row">
+          <div class="add-form__field add-form__field--half">
+            <label for="severity-companies" class="add-form__label">Severity</label>
+            <select id="severity-companies" class="add-form__select" required>
+              <option value="" disabled selected>Select</option>
+              <option value="red">Red</option>
+              <option value="amber">Amber</option>
+            </select>
+          </div>
+          <div class="add-form__field add-form__field--half">
+            <label for="expiry-companies" class="add-form__label">Expiry (optional)</label>
+            <input type="date" id="expiry-companies" class="add-form__input">
+          </div>
+        </div>
+        <div class="add-form__field">
+          <label for="message-companies" class="add-form__label">Message</label>
+          <input type="text" id="message-companies" class="add-form__input" placeholder="Compliance note for this rule">
+        </div>
+        <button type="submit" class="add-form__btn">Add Rule</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Backend Connection Section -->
+  <section id="backend-section" class="backend-section">
+    <!-- State: not configured -->
+    <div id="backend-not-configured" class="backend-state" style="display:none;">
+      <p class="backend-section__text">
+        Connect to SourceFence Cloud for team rules.
+      </p>
+      <a href="#" id="backend-configure-link" class="backend-section__link">
+        Configure in Settings
+      </a>
+    </div>
+
+    <!-- State: configured but not signed in -->
+    <div id="backend-sign-in" class="backend-state" style="display:none;">
+      <p class="backend-section__heading">Sign In to SourceFence Cloud</p>
+      <form id="sign-in-form" class="backend-sign-in-form" autocomplete="off">
+        <input type="email" id="sign-in-email" class="add-form__input" placeholder="Email" required>
+        <input type="password" id="sign-in-password" class="add-form__input" placeholder="Password" required>
+        <p id="sign-in-error" class="backend-section__error" style="display:none;"></p>
+        <button type="submit" id="sign-in-btn" class="add-form__btn">Sign In</button>
+      </form>
+    </div>
+
+    <!-- State: signed in -->
+    <div id="backend-connected" class="backend-state" style="display:none;">
+      <div class="backend-connected-row">
+        <div class="backend-connected-info">
+          <span class="backend-connected-badge">Connected</span>
+          <span id="backend-user-email" class="backend-connected-email"></span>
+        </div>
+        <button id="sign-out-btn" class="backend-sign-out-btn">Sign Out</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <button id="sync-btn" class="footer__sync-btn" disabled title="Connect backend in Settings">
+      Sync Rules
+    </button>
+    <a id="settings-link" href="#" class="footer__settings-link">Settings</a>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

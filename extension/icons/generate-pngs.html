@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SourceFence Icon Generator</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f1729;
+      color: #e2e8f0;
+      padding: 40px;
+      min-height: 100vh;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+      color: #0EA5A0;
+    }
+    .subtitle {
+      color: #94a3b8;
+      margin-bottom: 40px;
+      font-size: 14px;
+    }
+    .icon-grid {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .icon-card {
+      background: #1B2A4A;
+      border: 1px solid #2d3f5e;
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .icon-card h3 {
+      font-size: 14px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+    .icon-card canvas {
+      border: 1px dashed #2d3f5e;
+      border-radius: 4px;
+    }
+    .preview-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 160px;
+      min-height: 160px;
+    }
+    .download-btn {
+      background: #0EA5A0;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .download-btn:hover {
+      background: #0c918d;
+    }
+    .download-all {
+      margin-top: 32px;
+      background: #0EA5A0;
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 700;
+      transition: background 0.2s;
+    }
+    .download-all:hover {
+      background: #0c918d;
+    }
+    .instructions {
+      margin-top: 40px;
+      background: #1B2A4A;
+      border: 1px solid #2d3f5e;
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 600px;
+    }
+    .instructions h3 {
+      color: #0EA5A0;
+      margin-bottom: 12px;
+    }
+    .instructions ol {
+      padding-left: 20px;
+      line-height: 1.8;
+      color: #94a3b8;
+    }
+    .instructions code {
+      background: #0f1729;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 12px;
+      color: #0EA5A0;
+    }
+  </style>
+</head>
+<body>
+  <h1>SourceFence Icon Generator</h1>
+  <p class="subtitle">Render SVG shield icons to PNG at required Chrome extension sizes</p>
+
+  <div class="icon-grid" id="iconGrid"></div>
+
+  <button class="download-all" id="downloadAll">Download All PNGs</button>
+
+  <div class="instructions">
+    <h3>Instructions</h3>
+    <ol>
+      <li>Open this file in Google Chrome</li>
+      <li>The icons will render automatically from the SVG</li>
+      <li>Click individual download buttons, or "Download All PNGs"</li>
+      <li>Place the downloaded files in <code>extension/icons/</code></li>
+      <li>Files needed: <code>icon16.png</code>, <code>icon48.png</code>, <code>icon128.png</code></li>
+    </ol>
+  </div>
+
+  <script>
+    // The master SVG as a string (embedded so this HTML works standalone)
+    const SVG_SOURCE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#223558;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1B2A4A;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#12C4BD;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0EA5A0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <path d="M64 8 L112 24 C112 24 116 26 116 32 L116 62 C116 84 96 104 64 120 C32 104 12 84 12 62 L12 32 C12 26 16 24 16 24 Z"
+        fill="url(#shieldGrad)" stroke="#0EA5A0" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M64 16 L106 30 C106 30 108 31 108 35 L108 61 C108 80 90 98 64 112 C38 98 20 80 20 61 L20 35 C20 31 22 30 22 30 Z"
+        fill="none" stroke="#0EA5A0" stroke-width="1" stroke-opacity="0.3" stroke-linejoin="round"/>
+  <text x="42" y="82" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="52"
+        fill="url(#accentGrad)" letter-spacing="-2">S</text>
+  <text x="70" y="82" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="52"
+        fill="url(#accentGrad)" letter-spacing="-2">F</text>
+</svg>`;
+
+    const SIZES = [
+      { name: 'icon16', size: 16, label: '16 x 16' },
+      { name: 'icon48', size: 48, label: '48 x 48' },
+      { name: 'icon128', size: 128, label: '128 x 128' },
+    ];
+
+    const canvases = {};
+
+    function renderIcon(size) {
+      return new Promise((resolve, reject) => {
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+
+        const img = new Image();
+        const blob = new Blob([SVG_SOURCE], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+
+        img.onload = () => {
+          ctx.drawImage(img, 0, 0, size, size);
+          URL.revokeObjectURL(url);
+          resolve(canvas);
+        };
+
+        img.onerror = (err) => {
+          URL.revokeObjectURL(url);
+          reject(err);
+        };
+
+        img.src = url;
+      });
+    }
+
+    function downloadCanvas(canvas, filename) {
+      const link = document.createElement('a');
+      link.download = filename;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    async function init() {
+      const grid = document.getElementById('iconGrid');
+
+      for (const { name, size, label } of SIZES) {
+        const card = document.createElement('div');
+        card.className = 'icon-card';
+
+        const title = document.createElement('h3');
+        title.textContent = `${name}.png (${label})`;
+
+        const previewArea = document.createElement('div');
+        previewArea.className = 'preview-area';
+
+        try {
+          const canvas = await renderIcon(size);
+          canvases[name] = canvas;
+          previewArea.appendChild(canvas);
+        } catch (e) {
+          previewArea.textContent = 'Error rendering icon';
+          console.error(e);
+        }
+
+        const btn = document.createElement('button');
+        btn.className = 'download-btn';
+        btn.textContent = `Download ${name}.png`;
+        btn.addEventListener('click', () => {
+          if (canvases[name]) {
+            downloadCanvas(canvases[name], `${name}.png`);
+          }
+        });
+
+        card.appendChild(title);
+        card.appendChild(previewArea);
+        card.appendChild(btn);
+        grid.appendChild(card);
+      }
+    }
+
+    document.getElementById('downloadAll').addEventListener('click', () => {
+      for (const { name } of SIZES) {
+        if (canvases[name]) {
+          setTimeout(() => downloadCanvas(canvases[name], `${name}.png`), 0);
+        }
+      }
+    });
+
+    init();
+  </script>
+</body>
+</html>

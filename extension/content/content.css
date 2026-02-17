@@ -1,0 +1,24 @@
+/*
+ * SourceFence — Host element styles
+ *
+ * Positions the banner host fixed below LinkedIn's nav bar.
+ * All internal banner styling lives inside the Shadow DOM.
+ *
+ * pointer-events: none on host lets clicks pass through padding
+ * to the page behind. The shadow DOM sets pointer-events: auto
+ * on .sf-banner and .sf-pill to make the actual banner clickable.
+ */
+
+#sourcefence-banner-host {
+  all: initial;
+  position: fixed;
+  top: 52px; /* below LinkedIn's sticky nav bar */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1128px; /* matches LinkedIn's main content column */
+  z-index: 200; /* above page content & recruiter side-panel (110), below LinkedIn modals (9000+) */
+  padding: 8px 16px 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  pointer-events: none;
+}

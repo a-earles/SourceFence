@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SourceFence Options</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 20px;
+      color: #2D2D2D;
+    }
+    h1 { color: #1B2A4A; }
+    label { display: block; margin: 16px 0 4px; font-weight: 500; }
+    input[type="checkbox"] { margin-right: 8px; }
+    select, input[type="number"] {
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .option-row { margin: 12px 0; display: flex; align-items: center; gap: 8px; }
+    .save-btn {
+      margin-top: 24px;
+      padding: 10px 24px;
+      background: #0EA5A0;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .save-btn:hover { background: #0c8f8a; }
+    .saved-msg { color: #0EA5A0; margin-left: 12px; display: none; }
+  </style>
+</head>
+<body>
+  <h1>SourceFence Settings</h1>
+
+  <div class="option-row">
+    <input type="checkbox" id="enabled" checked>
+    <label for="enabled" style="display:inline; margin:0;">Enable SourceFence</label>
+  </div>
+
+  <div class="option-row">
+    <input type="checkbox" id="showGreen" checked>
+    <label for="showGreen" style="display:inline; margin:0;">Show green (no restriction) alerts</label>
+  </div>
+
+  <label for="autoDismiss">Auto-dismiss green alerts after (seconds):</label>
+  <input type="number" id="autoDismiss" min="1" max="60" value="5">
+
+  <label for="alertPosition">Alert banner position:</label>
+  <select id="alertPosition">
+    <option value="top">Top of page</option>
+    <option value="bottom">Bottom of page</option>
+  </select>
+
+  <div>
+    <button class="save-btn" id="saveBtn">Save Settings</button>
+    <span class="saved-msg" id="savedMsg">Settings saved!</span>
+  </div>
+
+  <hr style="margin: 32px 0; border: none; border-top: 1px solid #e2e8f0;">
+
+  <h2 style="color: #1B2A4A; margin-bottom: 4px;">Backend Configuration</h2>
+  <p style="color: #6b7280; font-size: 13px; margin-bottom: 16px;">
+    Connect to a Supabase backend to sync team rules across your organization.
+  </p>
+
+  <label for="supabaseUrl">Supabase URL</label>
+  <input type="url" id="supabaseUrl" placeholder="https://your-project.supabase.co" style="width: 100%; padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; margin-bottom: 4px;">
+
+  <label for="supabaseAnonKey">Supabase Anon Key</label>
+  <input type="text" id="supabaseAnonKey" placeholder="eyJhbGciOiJIUzI1NiIs..." style="width: 100%; padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; font-family: monospace; margin-bottom: 8px;">
+
+  <div id="backendStatus" style="margin: 8px 0; font-size: 13px; display: none;"></div>
+
+  <div style="display: flex; gap: 10px; align-items: center; margin-top: 8px;">
+    <button class="save-btn" id="testConnectionBtn" style="background: #1B2A4A;">Test Connection</button>
+    <button class="save-btn" id="saveBackendBtn">Save Backend Config</button>
+    <span class="saved-msg" id="backendSavedMsg">Backend config saved!</span>
+  </div>
+
+  <script>
+    const defaults = {
+      enabled: true,
+      show_green_alerts: true,
+      green_auto_dismiss_seconds: 5,
+      alert_position: 'top'
+    };
+
+    function load() {
+      chrome.storage.local.get('sourcefence_settings', (result) => {
+        const s = result.sourcefence_settings || defaults;
+        document.getElementById('enabled').checked = s.enabled;
+        document.getElementById('showGreen').checked = s.show_green_alerts;
+        document.getElementById('autoDismiss').value = s.green_auto_dismiss_seconds;
+        document.getElementById('alertPosition').value = s.alert_position;
+      });
+    }
+
+    document.getElementById('saveBtn').addEventListener('click', () => {
+      const settings = {
+        enabled: document.getElementById('enabled').checked,
+        show_green_alerts: document.getElementById('showGreen').checked,
+        green_auto_dismiss_seconds: parseInt(document.getElementById('autoDismiss').value, 10),
+        alert_position: document.getElementById('alertPosition').value
+      };
+      chrome.storage.local.set({ sourcefence_settings: settings }, () => {
+        const msg = document.getElementById('savedMsg');
+        msg.style.display = 'inline';
+        setTimeout(() => { msg.style.display = 'none'; }, 2000);
+      });
+    });
+
+    // ---- Backend Configuration ----
+
+    function loadBackendConfig() {
+      chrome.storage.local.get('sourcefence_backend_config', (result) => {
+        const config = result.sourcefence_backend_config || {};
+        document.getElementById('supabaseUrl').value = config.supabase_url || '';
+        document.getElementById('supabaseAnonKey').value = config.supabase_anon_key || '';
+
+        if (config.supabase_url && config.supabase_anon_key) {
+          showBackendStatus('configured', 'Backend configured.');
+        }
+      });
+    }
+
+    function showBackendStatus(type, message) {
+      const el = document.getElementById('backendStatus');
+      el.style.display = 'block';
+      el.textContent = message;
+      if (type === 'success' || type === 'configured') {
+        el.style.color = '#16a34a';
+      } else if (type === 'error') {
+        el.style.color = '#DC2626';
+      } else {
+        el.style.color = '#6b7280';
+      }
+    }
+
+    document.getElementById('saveBackendBtn').addEventListener('click', () => {
+      const supabaseUrl = document.getElementById('supabaseUrl').value.trim();
+      const supabaseAnonKey = document.getElementById('supabaseAnonKey').value.trim();
+
+      const config = {
+        supabase_url: supabaseUrl,
+        supabase_anon_key: supabaseAnonKey,
+      };
+
+      chrome.storage.local.set({ sourcefence_backend_config: config }, () => {
+        const msg = document.getElementById('backendSavedMsg');
+        msg.style.display = 'inline';
+        setTimeout(() => { msg.style.display = 'none'; }, 2000);
+
+        if (supabaseUrl && supabaseAnonKey) {
+          showBackendStatus('configured', 'Backend configured.');
+        } else {
+          showBackendStatus('info', 'Backend config cleared.');
+        }
+      });
+    });
+
+    document.getElementById('testConnectionBtn').addEventListener('click', async () => {
+      const supabaseUrl = document.getElementById('supabaseUrl').value.trim();
+      const supabaseAnonKey = document.getElementById('supabaseAnonKey').value.trim();
+
+      if (!supabaseUrl || !supabaseAnonKey) {
+        showBackendStatus('error', 'Please enter both URL and Anon Key.');
+        return;
+      }
+
+      showBackendStatus('info', 'Testing connection...');
+
+      try {
+        // Test by hitting the Supabase health/auth endpoint
+        const url = supabaseUrl.replace(/\/+$/, '') + '/auth/v1/settings';
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'apikey': supabaseAnonKey,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          showBackendStatus('success', 'Connection successful! Supabase is reachable.');
+        } else {
+          const body = await response.text();
+          showBackendStatus('error', 'Connection failed: HTTP ' + response.status + '. ' + body.substring(0, 100));
+        }
+      } catch (err) {
+        showBackendStatus('error', 'Connection failed: ' + (err.message || 'Network error'));
+      }
+    });
+
+    load();
+    loadBackendConfig();
+  </script>
+</body>
+</html>
