@@ -1,43 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
   <defs>
-    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#223558;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#1B2A4A;stop-opacity:1" />
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#223558"/>
+      <stop offset="100%" stop-color="#1B2A4A"/>
     </linearGradient>
-    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#12C4BD;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#0EA5A0;stop-opacity:1" />
+    <linearGradient id="shield" x1="0%" y1="15%" x2="100%" y2="85%">
+      <stop offset="0%" stop-color="#12C9C2"/>
+      <stop offset="100%" stop-color="#0A8C87"/>
     </linearGradient>
   </defs>
-
-  <!-- Shield shape -->
-  <path d="M64 8 L112 24 C112 24 116 26 116 32 L116 62 C116 84 96 104 64 120 C32 104 12 84 12 62 L12 32 C12 26 16 24 16 24 Z"
-        fill="url(#shieldGrad)"
-        stroke="#0EA5A0"
-        stroke-width="3"
-        stroke-linejoin="round"/>
-
-  <!-- Inner shield highlight line -->
-  <path d="M64 16 L106 30 C106 30 108 31 108 35 L108 61 C108 80 90 98 64 112 C38 98 20 80 20 61 L20 35 C20 31 22 30 22 30 Z"
-        fill="none"
-        stroke="#0EA5A0"
-        stroke-width="1"
-        stroke-opacity="0.3"
-        stroke-linejoin="round"/>
-
-  <!-- "S" letter -->
-  <text x="42" y="82"
-        font-family="Arial, Helvetica, sans-serif"
-        font-weight="800"
-        font-size="52"
-        fill="url(#accentGrad)"
-        letter-spacing="-2">S</text>
-
-  <!-- "F" letter -->
-  <text x="70" y="82"
-        font-family="Arial, Helvetica, sans-serif"
-        font-weight="800"
-        font-size="52"
-        fill="url(#accentGrad)"
-        letter-spacing="-2">F</text>
+  <!-- Rounded square background -->
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="url(#bg)"/>
+  <!-- Teal shield -->
+  <path d="M64 20 L100 33 C100 33 104 35 104 41 L104 63 C104 82 87 98 64 110 C41 98 24 82 24 63 L24 41 C24 35 28 33 28 33 Z"
+        fill="url(#shield)"/>
+  <!-- White fence — vertical bars -->
+  <line x1="50" y1="48" x2="50" y2="84" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="64" y1="42" x2="64" y2="92" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="78" y1="48" x2="78" y2="84" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- White fence — horizontal rails -->
+  <line x1="40" y1="58" x2="88" y2="58" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="41" y1="73" x2="87" y2="73" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
 </svg>

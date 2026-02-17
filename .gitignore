@@ -6,6 +6,7 @@ dist/
 *.log
 .DS_Store
 Thumbs.db
-*.png
+# Ignore screenshot PNGs in root, but not extension icons or CWS assets
+/*.png
 console-output.txt
 .playwright-mcp/
