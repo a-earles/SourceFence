@@ -25,8 +25,6 @@
   <!-- Stats Bar -->
   <div class="stats-bar">
     <span id="stats-rules" class="stats-bar__item">0 rules active</span>
-    <span class="stats-bar__divider"></span>
-    <span id="stats-sync" class="stats-bar__item">Last synced: Never</span>
   </div>
 
   <!-- Rules Section -->
@@ -47,23 +45,26 @@
 
       <form id="add-form-locations" class="add-form" autocomplete="off">
         <h3 class="add-form__heading">Add Location Rule</h3>
+        <p class="add-form__help">Flag candidates from specific locations. Use commas to match multiple places with one rule.</p>
         <div class="add-form__field">
-          <label for="pattern-locations" class="add-form__label">Pattern</label>
-          <input type="text" id="pattern-locations" class="add-form__input" placeholder="e.g. Germany, Berlin" required>
+          <label for="pattern-locations" class="add-form__label">Location pattern</label>
+          <input type="text" id="pattern-locations" class="add-form__input" placeholder="e.g. Germany, Berlin, Munich" required>
+          <p class="add-form__hint">Matches any profile whose location contains this text.</p>
         </div>
         <div class="add-form__row">
           <div class="add-form__field add-form__field--half">
             <label for="severity-locations" class="add-form__label">Severity</label>
             <select id="severity-locations" class="add-form__select" required>
               <option value="" disabled selected>Select</option>
-              <option value="red">Red</option>
-              <option value="amber">Amber</option>
+              <option value="red">Red — Restricted</option>
+              <option value="amber">Amber — Caution</option>
             </select>
           </div>
         </div>
         <div class="add-form__field">
-          <label for="message-locations" class="add-form__label">Message</label>
-          <input type="text" id="message-locations" class="add-form__input" placeholder="Compliance note for this rule">
+          <label for="message-locations" class="add-form__label">Compliance note (optional)</label>
+          <input type="text" id="message-locations" class="add-form__input" placeholder="e.g. Check with EU Ops before outreach">
+          <p class="add-form__hint">Shown in the alert banner to explain why this location is flagged.</p>
         </div>
         <button type="submit" class="add-form__btn">Add Rule</button>
       </form>
@@ -75,73 +76,46 @@
 
       <form id="add-form-companies" class="add-form" autocomplete="off">
         <h3 class="add-form__heading">Add Company Rule</h3>
+        <p class="add-form__help">Flag candidates who currently work at specific companies. Name variations like "Inc" or "Ltd" are handled automatically.</p>
         <div class="add-form__field">
-          <label for="pattern-companies" class="add-form__label">Pattern</label>
+          <label for="pattern-companies" class="add-form__label">Company name</label>
           <input type="text" id="pattern-companies" class="add-form__input" placeholder="e.g. Acme Corp" required>
+          <p class="add-form__hint">Matches the candidate's current employer.</p>
         </div>
         <div class="add-form__row">
           <div class="add-form__field add-form__field--half">
             <label for="severity-companies" class="add-form__label">Severity</label>
             <select id="severity-companies" class="add-form__select" required>
               <option value="" disabled selected>Select</option>
-              <option value="red">Red</option>
-              <option value="amber">Amber</option>
+              <option value="red">Red — Restricted</option>
+              <option value="amber">Amber — Caution</option>
             </select>
           </div>
           <div class="add-form__field add-form__field--half">
-            <label for="expiry-companies" class="add-form__label">Expiry (optional)</label>
+            <label for="expiry-companies" class="add-form__label">Expiry date (optional)</label>
             <input type="date" id="expiry-companies" class="add-form__input">
           </div>
         </div>
         <div class="add-form__field">
-          <label for="message-companies" class="add-form__label">Message</label>
-          <input type="text" id="message-companies" class="add-form__input" placeholder="Compliance note for this rule">
+          <label for="message-companies" class="add-form__label">Compliance note (optional)</label>
+          <input type="text" id="message-companies" class="add-form__input" placeholder="e.g. Non-solicit agreement until Dec 2026">
+          <p class="add-form__hint">Shown in the alert banner to explain why this company is flagged.</p>
         </div>
         <button type="submit" class="add-form__btn">Add Rule</button>
       </form>
     </div>
   </section>
 
-  <!-- Backend Connection Section -->
-  <section id="backend-section" class="backend-section">
-    <!-- State: not configured -->
-    <div id="backend-not-configured" class="backend-state" style="display:none;">
-      <p class="backend-section__text">
-        Connect to SourceFence Cloud for team rules.
-      </p>
-      <a href="#" id="backend-configure-link" class="backend-section__link">
-        Configure in Settings
-      </a>
-    </div>
-
-    <!-- State: configured but not signed in -->
-    <div id="backend-sign-in" class="backend-state" style="display:none;">
-      <p class="backend-section__heading">Sign In to SourceFence Cloud</p>
-      <form id="sign-in-form" class="backend-sign-in-form" autocomplete="off">
-        <input type="email" id="sign-in-email" class="add-form__input" placeholder="Email" required>
-        <input type="password" id="sign-in-password" class="add-form__input" placeholder="Password" required>
-        <p id="sign-in-error" class="backend-section__error" style="display:none;"></p>
-        <button type="submit" id="sign-in-btn" class="add-form__btn">Sign In</button>
-      </form>
-    </div>
-
-    <!-- State: signed in -->
-    <div id="backend-connected" class="backend-state" style="display:none;">
-      <div class="backend-connected-row">
-        <div class="backend-connected-info">
-          <span class="backend-connected-badge">Connected</span>
-          <span id="backend-user-email" class="backend-connected-email"></span>
-        </div>
-        <button id="sign-out-btn" class="backend-sign-out-btn">Sign Out</button>
-      </div>
-    </div>
+  <!-- Team Sync Coming Soon -->
+  <section class="coming-soon-section">
+    <p class="coming-soon-section__text">
+      Team rules sync <span class="coming-soon-badge">Coming Soon</span>
+    </p>
   </section>
 
   <!-- Footer -->
   <footer class="footer">
-    <button id="sync-btn" class="footer__sync-btn" disabled title="Connect backend in Settings">
-      Sync Rules
-    </button>
+    <span class="footer__version">v0.1.0</span>
     <a id="settings-link" href="#" class="footer__settings-link">Settings</a>
   </footer>
 

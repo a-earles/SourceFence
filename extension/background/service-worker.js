@@ -28,8 +28,7 @@ const STORAGE_KEYS = {
 const DEFAULT_SETTINGS = {
   enabled: true,
   show_green_alerts: true,
-  green_auto_dismiss_seconds: 5,
-  alert_position: 'top',
+  green_auto_dismiss_seconds: 3,
 };
 
 const BADGE_COLORS = {

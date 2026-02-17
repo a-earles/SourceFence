@@ -23,7 +23,6 @@
     enabled: true,
     show_green_alerts: true,
     green_auto_dismiss_seconds: 3,
-    alert_position: 'top',
   };
 
   /* ------------------------------------------------------------------ */

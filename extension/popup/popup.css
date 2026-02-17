@@ -172,13 +172,6 @@ button {
   color: var(--color-muted);
 }
 
-.stats-bar__divider {
-  width: 1px;
-  height: 12px;
-  background: var(--color-border);
-  margin: 0 12px;
-}
-
 /* --------------------------------------------------------------------------
    Tabs
    -------------------------------------------------------------------------- */
@@ -243,10 +236,23 @@ button {
 }
 
 .rule-list__empty {
-  padding: 16px 0;
+  padding: 14px 12px;
   text-align: center;
   color: var(--color-muted);
   font-size: 12px;
+  line-height: 1.5;
+}
+
+.rule-list__empty strong {
+  display: block;
+  color: var(--color-dark-text);
+  font-size: 12.5px;
+  margin-bottom: 4px;
+}
+
+.rule-list__empty-hint {
+  font-size: 11px;
+  color: var(--color-muted);
 }
 
 /* --------------------------------------------------------------------------
@@ -340,7 +346,14 @@ button {
   font-size: 12px;
   font-weight: 600;
   color: var(--color-navy);
+  margin-bottom: 2px;
+}
+
+.add-form__help {
+  font-size: 11px;
+  color: var(--color-muted);
   margin-bottom: 8px;
+  line-height: 1.4;
 }
 
 .add-form__field {
@@ -388,6 +401,12 @@ button {
   color: #a0aec0;
 }
 
+.add-form__hint {
+  font-size: 10px;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
 .add-form__btn {
   width: 100%;
   padding: 7px 0;
@@ -409,109 +428,33 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   Backend Connection Section
+   Coming Soon Section
    -------------------------------------------------------------------------- */
 
-.backend-section {
+.coming-soon-section {
   padding: 10px 14px;
   border-top: 1px solid var(--color-border);
   background: var(--color-light-bg);
+  text-align: center;
 }
 
-.backend-state {
-  /* States are toggled via display:none/block from JS */
-}
-
-.backend-section__text {
+.coming-soon-section__text {
   font-size: 11.5px;
   color: var(--color-muted);
-  margin-bottom: 4px;
 }
 
-.backend-section__heading {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--color-navy);
-  margin-bottom: 8px;
-}
-
-.backend-section__link {
-  font-size: 12px;
-  color: var(--color-teal);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.backend-section__link:hover {
-  text-decoration: underline;
-  color: var(--color-teal-hover);
-}
-
-.backend-section__error {
-  font-size: 11px;
-  color: var(--color-red);
-  margin: 4px 0;
-}
-
-.backend-sign-in-form {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.backend-connected-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.backend-connected-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-}
-
-.backend-connected-badge {
+.coming-soon-badge {
   display: inline-block;
-  padding: 2px 8px;
-  font-size: 10px;
+  padding: 1px 7px;
+  font-size: 9px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.3px;
-  color: #15803d;
-  background: #dcfce7;
-  border-radius: 10px;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.backend-connected-email {
-  font-size: 11.5px;
-  color: var(--color-dark-text);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.backend-sign-out-btn {
-  padding: 4px 12px;
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--color-muted);
-  background: var(--color-white);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: all var(--transition);
-}
-
-.backend-sign-out-btn:hover {
-  color: var(--color-red);
-  border-color: #fca5a5;
-  background: #fee2e2;
+  color: var(--color-teal);
+  background: #d1faf5;
+  border-radius: 8px;
+  vertical-align: middle;
+  margin-left: 2px;
 }
 
 /* --------------------------------------------------------------------------
@@ -527,24 +470,9 @@ button {
   background: var(--color-white);
 }
 
-.footer__sync-btn {
-  padding: 6px 18px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--color-white);
-  background: var(--color-navy);
-  border: none;
-  border-radius: var(--radius-sm);
-  transition: opacity var(--transition);
-}
-
-.footer__sync-btn:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-.footer__sync-btn:not(:disabled):hover {
-  opacity: 0.88;
+.footer__version {
+  font-size: 11px;
+  color: #b0b8c4;
 }
 
 .footer__settings-link {

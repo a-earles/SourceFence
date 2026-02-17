@@ -11,38 +11,6 @@
   'use strict';
 
   // -----------------------------------------------------------------------
-  // Default rules — used only when storage is completely empty
-  // -----------------------------------------------------------------------
-
-  const DEFAULT_LOCATION_RULES = [
-    {
-      id: 'lr_default_1',
-      pattern: 'India',
-      severity: 'red',
-      message: 'India hub — do not source. Route to APAC TA team.',
-      active: true
-    },
-    {
-      id: 'lr_default_2',
-      pattern: 'Poland',
-      severity: 'amber',
-      message: 'Poland entity exists. Check with EU Ops before outreach.',
-      active: true
-    }
-  ];
-
-  const DEFAULT_COMPANY_RULES = [
-    {
-      id: 'cr_default_1',
-      pattern: 'Acme Corp',
-      severity: 'red',
-      message: 'Active non-solicit agreement until Dec 2026.',
-      active: true,
-      expires_at: '2026-12-31'
-    }
-  ];
-
-  // -----------------------------------------------------------------------
   // Severity ranking — higher number means more restrictive
   // -----------------------------------------------------------------------
 
@@ -154,8 +122,7 @@
   // -----------------------------------------------------------------------
 
   /**
-   * Load rules from chrome.storage.local.  Falls back to hardcoded
-   * defaults when storage is completely empty.
+   * Load rules from chrome.storage.local.
    * @returns {Promise<void>}
    */
   function loadRules() {
@@ -164,31 +131,21 @@
         chrome.storage.local.get(
           ['sourcefence_location_rules', 'sourcefence_company_rules'],
           function (data) {
-            var locRules = data.sourcefence_location_rules;
-            var comRules = data.sourcefence_company_rules;
-
-            var storageEmpty =
-              (!Array.isArray(locRules) || locRules.length === 0) &&
-              (!Array.isArray(comRules) || comRules.length === 0);
-
-            if (storageEmpty) {
-              locationRules = DEFAULT_LOCATION_RULES.slice();
-              companyRules = DEFAULT_COMPANY_RULES.slice();
-            } else {
-              locationRules = Array.isArray(locRules) ? locRules : [];
-              companyRules = Array.isArray(comRules) ? comRules : [];
-            }
+            locationRules = Array.isArray(data.sourcefence_location_rules)
+              ? data.sourcefence_location_rules
+              : [];
+            companyRules = Array.isArray(data.sourcefence_company_rules)
+              ? data.sourcefence_company_rules
+              : [];
 
             rulesLoaded = true;
             resolve();
           }
         );
       } catch (err) {
-        // If chrome.storage is unavailable (e.g. during unit tests), use
-        // defaults so the matcher is still functional.
         console.warn('[SourceFence] Could not access chrome.storage:', err);
-        locationRules = DEFAULT_LOCATION_RULES.slice();
-        companyRules = DEFAULT_COMPANY_RULES.slice();
+        locationRules = [];
+        companyRules = [];
         rulesLoaded = true;
         resolve();
       }
