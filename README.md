@@ -2,7 +2,7 @@
 
 **"Sourcing Compliance, Simplified."**
 
-SourceFence is a Chrome extension that helps recruiters stay compliant when sourcing candidates on LinkedIn. It scans LinkedIn profiles in real time — across Standard, Recruiter, and Sales Navigator views — and displays color-coded alert banners when a candidate is located in a restricted market or employed at a restricted company.
+SourceFence is a Chrome extension that helps recruiters stay compliant when sourcing candidates on LinkedIn. It scans LinkedIn profiles in real time — across Standard and Recruiter views — and displays color-coded alert banners when a candidate is located in a restricted market or employed at a restricted company.
 
 All rules are stored locally in your browser. No data leaves your device.
 
@@ -10,8 +10,8 @@ All rules are stored locally in your browser. No data leaves your device.
 
 ## Features
 
-- **Real-time LinkedIn profile scanning** — works on Standard (`/in/`), Recruiter (`/talent/`), and Sales Navigator (`/sales/`) profile pages
-- **Search result badges** — per-candidate compliance badges on LinkedIn search results (Recruiter, Sales Nav, and standard search)
+- **Real-time LinkedIn profile scanning** — works on Standard (`/in/`) and Recruiter (`/talent/`) profile pages
+- **Search result badges** — per-candidate compliance badges on LinkedIn search results (Recruiter and standard search)
 - **Color-coded alerts** — Red (Restricted), Amber (Caution), Green (Clear)
 - **Location-based restriction rules** with comma-separated pattern matching (e.g., "Germany, Berlin, Munich")
 - **Company-based restriction rules** with automatic name normalization (strips Inc, Ltd, GmbH, etc.)

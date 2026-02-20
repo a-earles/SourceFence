@@ -20,7 +20,6 @@ SourceFence helps recruitment teams stay compliant by flagging restricted candid
 **Where it works:**
 - LinkedIn standard profiles (/in/)
 - LinkedIn Recruiter (/talent/)
-- LinkedIn Sales Navigator (/sales/)
 - LinkedIn search results with per-candidate badges
 
 **Key features:**
